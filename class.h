@@ -66,7 +66,38 @@ typedef struct field_info {
          * Size attributes_cout. Ignore all urecognized attributes.
          */
         attribute_info attributes[];
-} field _info;
+} field_info;
+
+/*!
+ *
+ */
+typedef struct method_info{
+    /*!
+     * Access flag to this info. Public, private, static or transient.
+     */
+    u2 access_flags;
+
+    /*!
+     * Unique name. Index of constant table.
+     */
+    u2 name_index;
+
+    /*!
+     * Valid index from constant pool.
+     */
+    u2 descriptor_index;
+
+    /*!
+     * Attribute counter.
+     */
+    u2 attributes_count;
+
+    /*!
+     * Class attributes.
+     * Size attributes_cout. Ignore all urecognized attributes.
+     */
+    attribute_info attributes[];
+} method_info;
 
 /*!
  * Struct representing a class structure.
@@ -96,7 +127,7 @@ typedef struct Class{
     /*!
      * Array of cp_info. Of size constant_pool_count - 1.
      */
-    cp_info constant_pool[];
+    cp_info *constant_pool;
 
     /*!
      * Access flag of the class. It's a bitmask.
@@ -122,7 +153,7 @@ typedef struct Class{
     /*!
      * An array of interfaces. Size of interfaces_count.
      */
-    u2 interfaces[];
+    u2 *interfaces;
 
     /*!
      * Number of entries in the following field table.
@@ -133,7 +164,7 @@ typedef struct Class{
     /*!
      * Table of fields. Of size fields_count.
      */
-    field_info fields[];
+    field_info *fields;
 
     /*!
      * Counter of methods.
@@ -144,7 +175,7 @@ typedef struct Class{
     /*!
      * Size of methods_count.
      */
-    method_info methods[];
+    method_info *methods;
 
     /*!
      * Counter attribute.
@@ -155,5 +186,5 @@ typedef struct Class{
     /*!
      * Size of attributes_count.
      */
-    attribute_info attributes[];
+    attribute_info *attributes;
 } Class;
