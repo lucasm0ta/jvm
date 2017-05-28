@@ -1,48 +1,30 @@
 #include <stdio.h>
-#include <stdint.h>
+#include "class.h"
 
-#define u1 uint8_t
-#define u2 uint16_t
-#define u4 uint32_t
+/*!
+ * Read file into a Class structure.
+ * @param  path_name [description]
+ * @return           [description]
+ */
+Class ler(char *path_name);
 
-typedef struct cp_item {
-  u1 tag;
-  u1 info[];
-} cp_info;
+/*!
+ * Reads byte from file.
+ * @param  file The file to have of its byte read from the sequence.
+ * @return    The byte read from file.
+ */
+u1 getB(FILE *file);
 
-typedef struct class{
-  u4 magic_number;
+/*!
+ * Reads word from file.
+ * @param  file The file to have of its word read from the sequence.
+ * @return      The word read from file.
+ */
+u2 getW(FILE *file);
 
-  u2 minor_version;
-
-  u2 major_version;
-
-  u2 constant_pool_count;
-
-  //TODO: verificar como resolver isso
-  //cp_info constant_pool[constant_pool_count - 1];
-
-  u2 access_flags;
-
-  u2 this_class;
-  u2 super_class;
-
-  u2 interfaces_count;
-
-  //u2 interfaces[interfaces_count];
-
-  u2 fields_count;
-  //field_info fields[fields_count];
-
-  u2 methods_count;
-  //method_info methods[methods_count];
-
-  u2 attributes_count;
-  //attribute_info attributes[attributes_count];
-} estrClasse;
-
-//definição de funções
-estrClasse ler(char * path_name);
-u1 getB(FILE * pa);
-u2 getW(FILE * pa);
-u4 getDW(FILE * pa);
+/*!
+ * Reads double word from file.
+ * @param  file The file to have of its double word read from the sequence.
+ * @return      The word read from file.
+ */
+u4 getDW(FILE *file);

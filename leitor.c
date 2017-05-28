@@ -1,8 +1,8 @@
 #include "leitor.h"
 
 //declaração de funções
-estrClasse ler(char * path_name) {
-    estrClasse class_inter;
+Class ler(char * path_name) {
+    Class class_inter;
 
     FILE * p_arq = fopen (path_name, "rw");
     if (p_arq != NULL) {
