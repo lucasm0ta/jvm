@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "leitor.c"
 
 int main (int argc, char *argv[]) {
     if (argc >= 2) { // Second argument is the .class path
