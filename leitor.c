@@ -10,7 +10,7 @@ typedef struct cp_item {
   u1 info[];
 } cp_info;
 
-struct class{
+typedef struct class{
   u4 magic_number;
 
   u2 minor_version;
@@ -39,16 +39,50 @@ struct class{
 
   u2 attributes_count;
   //attribute_info attributes[attributes_count];
-};
+} estrClasse;
+
+//definição de funções
+estrClasse ler(char * path_name);
+u1 getB(FILE * pa);
+u2 getW(FILE * pa);
+u4 getDW(FILE * pa);
 
 
-void ler(char * path_name) {
-  p_arq = fopen (path_name, "rw");
+
+//declaração de funções
+estrClasse ler(char * path_name) {
+  estrClasse class_inter;
+
+  FILE * p_arq = fopen (path_name, "rw");
   if (p_arq != NULL) {
+
     //TODO: percorrer o arquivo
   }
 
 
 
-  fclose (pFile);
+  fclose (p_arq);
+}
+
+
+u1 getB(FILE * pa){
+  u1 ret;
+  ret = getc(pa);
+  return ret;
+}
+
+u2 getW(FILE * pa){
+  u2 ret;
+  ret = getc(pa);
+  ret = ret << 8 | getc(pa);
+  return ret;
+}
+
+u4 getDW(FILE * pa){
+  u4 ret;
+  ret = getc(pa);
+  ret = ret << 8 | getc(pa);
+  ret = ret << 8 | getc(pa);
+  ret = ret << 8 | getc(pa);
+  return ret;
 }
