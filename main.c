@@ -1,18 +1,15 @@
 #include <stdio.h>
-/*!
- * Main function. Receives a ".class" document as parameter to be interpreted.
- * @param  argc Counter o arv items.
- * @param  argv Items received as parameters.
- * @return      Function code.
- */
+
 int main (int argc, char *argv[]) {
-    if (argc >= 2) {
+    if (argc >= 2) { // Second argument is the .class path
         printf("%s\n", argv[1]);
-        FILE * pFile;
-        pFile = fopen ("myfile.txt", "r");
-        if (pFile != NULL) {
-            fputs ("fopen example", pFile);
-            fclose (pFile);
+        FILE * file;
+        file = fopen (argv[1], "r");
+        if (file != NULL) {
+            int bytes; // Number of bytes in file
+            for (bytes = 0; getc(file) != EOF; ++bytes);
+            printf("File has: %d bytes\n", bytes);
+            fclose (file);
         }
     }
 }
