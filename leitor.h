@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "class.h"
 
+#ifndef LEITOR_H
+#define LEITOR_H
+
 /*!
  * Read file into a Class structure.
  * @param  path_name [description]
@@ -28,3 +31,7 @@ u2 getW(FILE *file);
  * @return      The word read from file.
  */
 u4 getDW(FILE *file);
+
+
+
+#endif //LEITOR_H

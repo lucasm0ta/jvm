@@ -1,8 +1,7 @@
-#include <stdint.h>
+#include "util.h"
 
-#define u1 uint8_t
-#define u2 uint16_t
-#define u4 uint32_t
+#ifndef CLASS_H
+#define CLASS_H
 
 /*!
  * Item from constant pool.
@@ -188,3 +187,5 @@ typedef struct Class{
      */
     attribute_info *attributes;
 } Class;
+
+#endif // CLASS_H

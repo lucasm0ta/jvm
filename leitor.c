@@ -2,7 +2,7 @@
 
 //declaração de funções
 Class ler(char * path_name) {
-    Class class_inter;
+    Class class_inter; // Pointer?
 
     FILE * p_arq = fopen (path_name, "rw");
     if (p_arq != NULL) {
@@ -30,12 +30,9 @@ Class ler(char * path_name) {
         class_inter.attributes_count = getW(p_arq);
 
         //TODO: pegar os atributos
-
     }
-
-
-
     fclose (p_arq);
+    return class_inter;
 }
 
 
