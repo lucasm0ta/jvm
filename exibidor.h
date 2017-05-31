@@ -1,5 +1,6 @@
 #include "class.h"
 #include "leitor.h"
+#include "constant_pool.h"
 
 /*!
  * Display Class structure.

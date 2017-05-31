@@ -1,23 +1,8 @@
 #include "util.h"
+#include "constant_pool.h"
 
 #ifndef CLASS_H
 #define CLASS_H
-
-/*!
- * Item from constant pool.
- */
-typedef struct cp_info {
-    /*!
-     * Tag of constant.
-     */
-    u1 tag;
-
-    /*!
-     * TODO: Make this a union.
-     * Union of constan type.
-     */
-    u1 info[];
-} cp_info;
 
 typedef struct attribute_info {
     /*!
@@ -126,7 +111,7 @@ typedef struct Class{
     /*!
      * Array of cp_info. Of size constant_pool_count - 1.
      */
-    cp_info *constant_pool;
+    u1 **constant_pool;
 
     /*!
      * Access flag of the class. It's a bitmask.

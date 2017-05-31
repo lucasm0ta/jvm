@@ -1,14 +1,7 @@
 /*!
- * Contains structs used in the constant pool
+ * Contains structs used as entries in the constant pool
  *
- * Each entry in the constant_pool array is of type cp_info defined by
- *
- *      cp_info {
-            u1 tag;
-            u1 info[];
-        }
- *
- *  Where tag defines what type of info the struct is holding. The table bellow
+ *  Tag defines what type of info the struct is holding. The table bellow
  *  shows what each tag corresponds to
  *
  * Constant Type	Value
@@ -31,6 +24,8 @@
  * https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.4.6
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "util.h"
 
 #ifndef CONSTANT_POOL_H
@@ -38,61 +33,54 @@
 
 /*!
  * Represent Class or Interface
+ *
+ * @tag:        Tag should be 7
+ *
+ * @name_index: Valid index into the constant_pool
  */
 typedef struct CONSTANT_Class_info {
-    /*!
-     * Value 7
-     */
-    u1 tag;
-
-    /*!
-     * Valid index into the constant_pool table
-     */
+    u1 tag; // 7
     u2 name_index;
 } class_info;
 
 /*!
+ * Represents Fields
  *
+ * @tag:                    Tag should be 9
+ *
+ * @class_index:            Points to a class or interface type
+ *
+ * @name_and_type_index:    Valid index into the constant pool
  */
 typedef struct CONSTANT_Fieldref_info {
-    /*!
-     * Value 9
-     */
-    u1 tag;
-
-    /*!
-     * Index must point to a class type or interface type
-     */
+    u1 tag; // 9
     u2 class_index;
-
-    /*!
-     * Valid index into the constant pool table. Must point to a name_and_type.
-     */
     u2 name_and_type_index;
 } fieldref_info;
 
 /*!
+ * Represents Methods
  *
+ * @tag:                    Tag should be 10
+ *
+ * @class_index:            Points to a class or interface type
+ *
+ * @name_and_type_index:    Valid index into the constant pool
  */
 typedef struct CONSTANT_Methodref_info {
-    /*!
-     * Value 10
-     */
-    u1 tag;
-
-    /*!
-     * Index must point to a class type or interface type
-     */
+    u1 tag; // 10
     u2 class_index;
-
-    /*!
-     * Valid index into the constant pool table. Must point to a name_and_type.
-     */
     u2 name_and_type_index;
 } methodref_info;
 
 /*!
+ * Represents a method in an interface
  *
+ * @tag:                    Tag should be 10
+ *
+ * @class_index:            Points to a class or interface type
+ *
+ * @name_and_type_index:    Valid index into the constant pool
  */
 typedef struct CONSTANT_InterfaceMethodref_info {
     /*!
@@ -109,81 +97,71 @@ typedef struct CONSTANT_InterfaceMethodref_info {
      * Valid index into the constant pool table. Must point to a name_and_type.
      */
     u2 name_and_type_index;
-} interfacemethodref;
+} interfacemethodref_info;
 
 /*!
  * Represent contant objects of type string
+ *
+ * @tag:            Tag should be 8
+ *
+ * @string_index:   Valid index into the constant_pool (points to utf8)
  */
 typedef struct CONSTANT_String_info {
-    /*!
-     * Value 8
-     */
-    u1 tag;
-
-    /*!
-     * Valid index into the constant pool table that points to a utf8_info.
-     */
+    u1 tag; // 8
     u2 string_index;
 } string_info;
 
 /*!
  * Represents a 4 byte integer value
+ *
+ *
+ * @tag:    Tag should be 3
+ *
+ * @bytes:  Integer value
  */
  typedef struct CONSTANT_Integer_info {
-     /*!
-      * Value 3
-      */
-     u1 tag;
-
-     /*!
-      * bytes representing value (big-endian)
-      */
+     u1 tag; // 3
      u4 bytes;
  } integer_info;
 
 /*!
  * Represents a 4 byte float value
+ *
+ * @tag:    Tag should be 4
+ *
+ * @bytes:  Float value
  */
  typedef struct CONSTANT_Float_info {
-     /*!
-      * Value 4
-      */
-     u1 tag;
-
-     /*!
-      * bytes representing value (big-endian)
-      */
+     u1 tag; // 4
      u4 bytes;
  } float_info;
 
  /*!
   * Represents a 8 byte long value
+  *
+  * @tag:        Tag should be 5
+  *
+  * @high_bytes: The higher bytes of the double value
+  *
+  * @low_bytes:  Lower bytes of double value
   */
 typedef struct CONSTANT_Long_info {
-    /*!
-     * Value 5
-     */
-    u1 tag;
-
-    /*!
-     * The high_bytes and low_bytes items together represents the value
-     */
+    u1 tag; // 5
     u4 high_bytes;
     u4 low_bytes;
 } long_info;
 
 /*!
  * Represents a 8 byte double value
+ *
+ * @tag:        Tag should be 6
+ *
+ * @high_bytes: The higher bytes of the double value
+ *
+ * @low_bytes:  Lower bytes of double value
  */
 typedef struct CONSTANT_Double_info {
-    /*!
-     * Value 6
-     */
-    u1 tag;
-
-    /*!
-     * The high_bytes and low_bytes items together represents the value
-     */
+    u1 tag; // 6
     u4 high_bytes;
     u4 low_bytes;
 } double_info;
@@ -191,96 +169,87 @@ typedef struct CONSTANT_Double_info {
 /*!
  * Represents field or method without indicating which class or interface type
  * it belongs to.
+ *
+ * @tag:        Tag should be 12
+ *
+ * @name_index: valid index into the constant_pool
+ *
+ * @descriptor_index: valid index into the constant_pool
  */
 typedef struct CONSTANT_NameAndType_info {
-    /*!
-     * Value 12
-     */
-    u1 tag;
-
-    /*!
-     * name_index and descriptor_index must be a
-     * valid index into the consntant_pool that points to a utf8_info
-     */
+    u1 tag; // 12
     u2 name_index;
     u2 descriptor_index;
 } name_and_type_info;
 
 /*!
  * Represents constant string values
+ *
+ * @tag:        Tag should be 1
+ *
+ * @length:     String Length
+ *
+ * @bytes:      Bytes of the string
  */
 typedef struct CONSTANT_Utf8_info {
-    /*!
-     * Value 1
-     */
-    u1 tag;
-
-    /*!
-     * String length
-     */
+    u1 tag; // 1
     u2 length;
-
-    /*!
-     * Bytes of the string
-     */
-    u1 bytes[length];
+    u1 bytes[];
 } utf8_info;
 
 /*!
  * Represents a method handle
+ *
+ * @tag:                Tag should be 15
+ *
+ * @reference_kind:     Value ranging form 1 to 9. Denotes kind of method handle
+ *
+ * @reference_index:    Valid index into the constant_pool. reference_kind defines
+ *                      what it should point to
  */
 typedef struct CONSTANT_MethodHandle_info {
-    /*!
-     * Value 15
-     */
-     u1 tag;
-
-     /*!
-      * Value ranigng from 1 to 9 that denotes the kind of this
-      * method handle.
-      */
+     u1 tag; // 15
      u1 reference_kind;
-
-     /*!
-      * Valid index into the constant_pool the reference_kind defines what type
-      * of entry it should point to
-      */
      u2 reference_index;
  } method_handle_info;
 
 /*!
  * Represents a method type
+ *
+ * @tag:                Tag should be 16
+ *
+ * @descriptor_index:   Valid index into the constant_pool pointing to a utf8_info
  */
  typedef struct CONSTANT_MethodType_info {
-     /*!
-      * Value 16
-      */
-     u1 tag;
-
-     /*!
-      * Valid index into the constant_pool pointing to a utf8_info
-      */
+     u1 tag; // 16
      u2 descriptor_index;
  } method_type_info;
 
 /*!
+ * Used by an invokeDynamic thing (?)
  *
+ * @tag:                Tag should be 18
+ *
+ * @bootstrap_method_attr_index: (?)
+ *
+ * @name_and_type_index: Points to an entry in the constant_pool
  */
 typedef struct CONSTANT_InvokeDynamic_info {
-    /*!
-     * Value 18
-     */
-    u1 tag;
-
-    /*!
-     *
-     */
+    u1 tag; // 18
     u2 bootstrap_method_attr_index;
-
-    /*!
-     *
-     */
     u2 name_and_type_index;
 } invoke_dynamic_info;
+
+/*!
+ * Receives an entry from the constant_pool and print its information
+ * @param entry non-null entry
+ */
+void printEntryInfo(u1 *entry);
+
+/*!
+ * Frees memory used by an entry. Sets the pointer to NULL
+ * @param entry Pointer to a pointer so it can set it to NULL after freeing.
+ */
+void freeEntry(u1** entry);
 
 #endif // CONSTANT_POOL_H

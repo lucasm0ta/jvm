@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "class.h"
+#include "constant_pool.h"
 
 #ifndef LEITOR_H
 #define LEITOR_H
@@ -31,6 +33,13 @@ u2 getW(FILE *file);
  * @return      The word read from file.
  */
 u4 getDW(FILE *file);
+
+/*!
+ * Reads a single entry of the constant_pool
+ * @param  file The file to be read from
+ * @return      Returns a cp_info struct with its info.
+ */
+u1 *readConstantPoolEntry(FILE * file);
 
 
 
