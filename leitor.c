@@ -13,7 +13,7 @@ Class ler(char * path_name) {
 
         // Array that will hold the constant pool entries
         class_inter.constant_pool =
-                (u1 **) malloc(sizeof(u1*) * class_inter.constant_pool_count);
+                (u1 **) malloc(sizeof(u1*) * (class_inter.constant_pool_count-1));
         int i;
         // Creating the entries
         for(i = 0; i < class_inter.constant_pool_count-1; i++) {
@@ -25,14 +25,19 @@ Class ler(char * path_name) {
         class_inter.super_class = getW(p_arq);
         class_inter.interfaces_count = getW(p_arq);
 
+        class_inter.interfaces =
+                (u2 *) malloc(sizeof(u2) * class_inter.interfaces_count);
+
+        for (i = 0; i < class_inter.interfaces_count; i++) {
+            class_inter.interfaces[i] = getW(p_arq);
+        }
+
+        class_inter.fields_count = getW(p_arq);
+
         // Temporary
         fclose(p_arq);
         return class_inter; // Works untill here
         //----------
-
-        //TODO: pegar as interfaces
-
-        class_inter.fields_count = getW(p_arq);
 
         class_inter.methods_count = getW(p_arq);
 

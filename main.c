@@ -29,7 +29,7 @@ int main (int argc, char *argv[]) {
         // Cleaning up
         //TODO: Put this into a function in the class.c file
         int i = 0;
-        for(i = 0; i < class_file.constant_pool_count; i++) {
+        for(i = 0; i < class_file.constant_pool_count-1; i++) {
             freeEntry(&class_file.constant_pool[i]);
         }
         free(class_file.constant_pool);

@@ -83,19 +83,8 @@ typedef struct CONSTANT_Methodref_info {
  * @name_and_type_index:    Valid index into the constant pool
  */
 typedef struct CONSTANT_InterfaceMethodref_info {
-    /*!
-     * Value 11
-     */
     u1 tag;
-
-    /*!
-     * Index must point to a class type or interface type
-     */
     u2 class_index;
-
-    /*!
-     * Valid index into the constant pool table. Must point to a name_and_type.
-     */
     u2 name_and_type_index;
 } interfacemethodref_info;
 
@@ -241,10 +230,29 @@ typedef struct CONSTANT_InvokeDynamic_info {
 } invoke_dynamic_info;
 
 /*!
- * Receives an entry from the constant_pool and print its information
- * @param entry non-null entry
+ * Print the entry in the index passed. It needs the whole constant pool
+ * because it needs information in other entries.
+ * @param constant_pool The whole constant pool
+ * @param index         index of the entry
  */
-void printEntryInfo(u1 *entry);
+void printEntryInfo(u1 **constant_pool, int index);
+
+/*!
+ * Print the entire constant poo;
+ * @param constant_pool The constant_pool pointer
+ * @param size          The size of the constant pool
+ */
+void printConstantPool(u1** constant_pool, int size);
+
+/*!
+ * Prints the information contained in a utf8, class_info or name_index
+ * entry. This way instead of printing only the entry number we can print
+ * what it Contains
+ *
+ * @param constant_pool pointer to constant_pool
+ * @param index         the index we want the info from
+ */
+void printUtf8String(u1** constant_pool, int index);
 
 /*!
  * Frees memory used by an entry. Sets the pointer to NULL
