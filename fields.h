@@ -16,9 +16,9 @@
   * information of a field's attribute
   */
  typedef struct attribute_info {
-     u2 atribute_name_index;
-     u4 atribute_length;
-     u1 info;
+     u2 attribute_name_index;
+     u4 attribute_length;
+     u1 * info;
  } attribute_info;
 
 

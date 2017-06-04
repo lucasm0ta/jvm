@@ -34,6 +34,13 @@ Class ler(char * path_name) {
 
         class_inter.fields_count = getW(p_arq);
 
+        class_inter.fields =
+                (field_info *) malloc(sizeof(field_info) * class_inter.fields_count);
+
+        for (i = 0; i < class_inter.fields_count; i++) {
+            class_inter.fields[i] = readFieldEntry(p_arq);
+        }
+
         // Temporary
         fclose(p_arq);
         return class_inter; // Works untill here
@@ -102,6 +109,29 @@ static u1 *readUtf8AsArray(FILE* file) {
     }
     return (u1 *) byte_array;
 }
+
+field_info * readFieldEntry(FILE * file){
+    field_info Temporary;
+    Temporary.access_flags = getW(file);
+    Temporary.name_index = getW(file);
+    Temporary.descriptor_index = getW(file);
+    Temporary.attributes_count = getW(file);
+    Temporary.attributes = (attribute_info *) malloc(sizeof(attribute_info) * Temporary.attributes_count);
+
+    for (int i = 0; i < Temporary.attributes_count; i++) {
+        attribute_info *temp = &Temporary.attributes[i];
+        temp->attribute_name_index = getW(file);
+        temp->attribute_length = getDW(file);
+        temp->info = (u1 *) malloc(sizeof(u1) * temp->attribute_length);
+
+        for (size_t j = 0; j < temp->attribute_length; j++) {
+            temp->info[j] = getB(file);
+        }
+    }
+
+
+}
+
 
 u1 *readConstantPoolEntry(FILE * file) {
     u1 tag = getB(file);

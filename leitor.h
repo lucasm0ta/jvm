@@ -41,6 +41,13 @@ u4 getDW(FILE *file);
  */
 u1 *readConstantPoolEntry(FILE * file);
 
+/*!
+ * Reads a single field from an archive
+ * @param  file The file to be read from
+ * @return      Returns a field_info struct with its info.
+ */
+field_info * readFieldEntry(FILE * file);
+
 
 
 #endif //LEITOR_H
