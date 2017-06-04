@@ -1,56 +1,9 @@
 #include "util.h"
 #include "constant_pool.h"
+#include "fields.h"
 
 #ifndef CLASS_H
 #define CLASS_H
-
-typedef struct attribute_info {
-    /*!
-     *
-     */
-    u2 attribute_name_index;
-
-    /*!
-     *
-     */
-    u4 attribute_length;
-
-    /*!
-     * Size attribute_length.
-     */
-    u1 info[];
-} attribute_info;
-
-/*!
- * Field information.
- */
-typedef struct field_info {
-        /*!
-         * Access flag to this info. Public, private, static or transient.
-         */
-        u2 access_flags;
-
-        /*!
-         * Unique name. Index of constant table.
-         */
-        u2 name_index;
-
-        /*!
-         * Valid index from constant pool.
-         */
-        u2 descriptor_index;
-
-        /*!
-         * Attribute counter.
-         */
-        u2 attributes_count;
-
-        /*!
-         * Class attributes.
-         * Size attributes_cout. Ignore all urecognized attributes.
-         */
-        attribute_info attributes[];
-} field_info;
 
 /*!
  *
@@ -148,7 +101,7 @@ typedef struct Class{
     /*!
      * Table of fields. Of size fields_count.
      */
-    field_info *fields;
+    field_info **fields;
 
     /*!
      * Counter of methods.
