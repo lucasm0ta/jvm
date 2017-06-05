@@ -12,6 +12,15 @@ void showAccess(int access_flag) {
     if(access_flag & 0x0001) {
         printf("public; ");
     }
+    if(access_flag & 0x0002) {
+        printf("private; ");
+    }
+    if(access_flag & 0x0004) {
+        printf("protected; ");
+    }
+    if(access_flag & 0x0008) {
+        printf("static; ");
+    }
     if(access_flag & 0x0010) {
         printf("final; ");
     }
@@ -59,6 +68,9 @@ void printBasicStructure(Class class) {
         printf("------------------------\n");
     }
     printf("Fields Counter: %d\n", class.fields_count);
-
     printAllFields(class.fields, class.fields_count);
+
+    printf("Methods Counter: %d\n", class.methods_count);
+    printAllMethods(class.methods, class.methods_count);
+
 }

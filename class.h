@@ -1,40 +1,11 @@
 #include "util.h"
 #include "constant_pool.h"
+#include "attribute.h"
 #include "fields.h"
+#include "methods.h"
 
 #ifndef CLASS_H
 #define CLASS_H
-
-/*!
- *
- */
-typedef struct method_info{
-    /*!
-     * Access flag to this info. Public, private, static or transient.
-     */
-    u2 access_flags;
-
-    /*!
-     * Unique name. Index of constant table.
-     */
-    u2 name_index;
-
-    /*!
-     * Valid index from constant pool.
-     */
-    u2 descriptor_index;
-
-    /*!
-     * Attribute counter.
-     */
-    u2 attributes_count;
-
-    /*!
-     * Class attributes.
-     * Size attributes_cout. Ignore all urecognized attributes.
-     */
-    attribute_info attributes[];
-} method_info;
 
 /*!
  * Struct representing a class structure.

@@ -7,21 +7,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "attribute.h"
 #include "util.h"
 
 #ifndef FIELDS_H
 #define FIELDS_H
-
- /*
-  * information of a field's attribute
-  */
- typedef struct attribute_info {
-     u2 attribute_name_index;
-     u4 attribute_length;
-     u1 * info;
- } attribute_info;
-
-
 
  /*!
   * Field information.

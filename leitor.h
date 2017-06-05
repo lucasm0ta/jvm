@@ -54,6 +54,13 @@ u1 *readConstantPoolEntry(FILE * file);
  */
 void readFieldEntry(field_info *field, FILE * file);
 
+/*!
+ * lalalal
+ * @param field [description]
+ * @param file  [description]
+ */
+void readMethodEntry(method_info *field, FILE * file);
 
+void readAttributesInfoEntry(attribute_info *attribute, FILE * file);
 
 #endif //LEITOR_H

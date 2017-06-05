@@ -8,5 +8,6 @@ add_executable(JVM
     exibidor.c
     constant_pool.c
     fields.c
+    methods.c
 )
 set_property(TARGET JVM PROPERTY C_STANDARD 99)

@@ -45,6 +45,13 @@ Class ler(char * path_name) {
              readFieldEntry(&class_inter.fields[i], p_arq);
         }
 
+
+        class_inter.methods_count = getW(p_arq);
+        class_inter.methods = (method_info *) malloc(sizeof(method_info) * class_inter.methods_count);
+        for (i = 0; i < class_inter.methods_count; i++) {
+             readMethodEntry(&class_inter.methods[i], p_arq);
+        }
+
         // Temporary
         fclose(p_arq);
         return class_inter; // Works untill here
@@ -118,17 +125,31 @@ void readFieldEntry(field_info *field, FILE * file){
     field->attributes = (attribute_info *) malloc(sizeof(attribute_info) * field->attributes_count);
 
     for (int i = 0; i < field->attributes_count; i++) {
-        attribute_info *temp = &field->attributes[i];
-        temp->attribute_name_index = getW(file);
-        temp->attribute_length = getDW(file);
-        temp->info = (u1 *) malloc(sizeof(u1) * temp->attribute_length);
-
-        for (size_t j = 0; j < temp->attribute_length; j++) {
-            temp->info[j] = getB(file);
-        }
+        readAttributesInfoEntry(&field->attributes[i], file);
     }
 }
 
+void readMethodEntry(method_info *method, FILE * file){
+    method->access_flags = getW(file);
+    method->name_index = getW(file);
+    method->descriptor_index = getW(file);
+    method->attributes_count = getW(file);
+    method->attributes = (attribute_info *) malloc(sizeof(attribute_info) * method->attributes_count);
+    attribute_info *attributes = method->attributes;
+    for(int j = 0; j < method->attributes_count; j++){
+        readAttributesInfoEntry(&attributes[j], file);
+    }
+}
+
+void readAttributesInfoEntry(attribute_info *attribute, FILE * file){
+    attribute->attribute_name_index = getW(file);
+    attribute->attribute_length = getDW(file);
+    attribute->info = (u1 *) malloc(sizeof(u1) * attribute->attribute_length);
+
+    for (size_t j = 0; j < attribute->attribute_length; j++) {
+        attribute->info[j] = getB(file);
+    }
+}
 
 u1 *readConstantPoolEntry(FILE * file) {
     u1 tag = getB(file);
