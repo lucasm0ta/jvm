@@ -70,23 +70,23 @@ Class ler(char * path_name) {
 
 u1 getB(FILE * pa){
     u1 ret;
-    ret = getc(pa);
+    ret = fgetc(pa);
     return ret;
 }
 
 u2 getW(FILE * pa){
     u2 ret;
-    ret = getc(pa);
-    ret = ret << 8 | getc(pa);
+    ret = fgetc(pa);
+    ret = ret << 8 | fgetc(pa);
     return ret;
 }
 
 u4 getDW(FILE * pa){
     u4 ret;
     ret = getc(pa);
-    ret = ret << 8 | getc(pa);
-    ret = ret << 8 | getc(pa);
-    ret = ret << 8 | getc(pa);
+    ret = ret << 8 | fgetc(pa);
+    ret = ret << 8 | fgetc(pa);
+    ret = ret << 8 | fgetc(pa);
     return ret;
 }
 

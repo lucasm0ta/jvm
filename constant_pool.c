@@ -52,33 +52,55 @@ void printStringInfo(u1** constant_pool, int index) {
 }
 
 void printIntegerInfo(u1** constant_pool, int index) {
-    integer_info *entry = (integer_info *) constant_pool[index];
-    printf("\t\tCONSTANT Integer [%d]: \n", entry->tag);
-    printf("\t\tBytes: %#08x\n", entry->bytes);
-    printf("\t\tInteger: %d\n", entry->bytes);
+    integer_info entry;
+    entry.tag = constant_pool[index][0];
+    entry.bytes = (constant_pool[index][1] << 24)|(constant_pool[index][2] << 16)|
+                       (constant_pool[index][3] << 8)|(constant_pool[index][4]);
+    printf("\t\tCONSTANT Integer [%d]: \n", entry.tag);
+    printf("\t\tBytes: %#08x\n", entry.bytes);
+    printf("\t\tInteger: %d\n", entry.bytes);
 }
 
 void printFloatInfo(u1** constant_pool, int index) {
-    float_info *entry = (float_info *) constant_pool[index];
-    printf("\t\tCONSTANT Float [%d]: \n", entry->tag);
-    printf("\t\tBytes: %#08x\n", entry->bytes);
-    printf("\t\tFloat: %f\n", (float)entry->bytes);
+    float_info entry;
+    entry.tag = constant_pool[index][0];
+    entry.bytes = (constant_pool[index][1] << 24)|(constant_pool[index][2] << 16)|
+                       (constant_pool[index][3] << 8)|(constant_pool[index][4]);
+    printf("\t\tCONSTANT Float [%d]: \n", entry.tag);
+    printf("\t\tBytes: %#08x\n", entry.bytes);
+    float *aux = &entry.bytes;
+    printf("\t\tFloat: %f\n", *aux);
 }
 
 void printLongInfo(u1** constant_pool, int index) {
-    long_info *entry = (long_info *) constant_pool[index];
-    long value = ((long) entry->high_bytes << 32) + entry->low_bytes;
-    printf("\t\tHigh Bytes: %#04x\n", entry->high_bytes);
-    printf("\t\tLow Bytes: %#04x\n", entry->low_bytes);
+    long_info entry;
+
+    entry.high_bytes = (constant_pool[index][1] << 24)|(constant_pool[index][2] << 16)|
+                       (constant_pool[index][3] << 8)|(constant_pool[index][4]);
+
+    entry.low_bytes = (constant_pool[index][5] << 24)|(constant_pool[index][6] << 16)|
+                      (constant_pool[index][7] << 8)|(constant_pool[index][8]);
+    long value = ((long) entry.high_bytes << 32) | entry.low_bytes;
+
+    printf("\t\tHigh Bytes: %#08x\n", entry.high_bytes);
+    printf("\t\tLow Bytes: %#08x\n", entry.low_bytes);
     printf("\t\tLong: %ld\n", value);
 }
 
 void printDoubleInfo(u1** constant_pool, int index) {
-    double_info *entry = (double_info *) constant_pool[index];
-    long value = ((long) entry->high_bytes << 32) + entry->low_bytes;
-    printf("\t\tHigh Bytes: %#08x\n", entry->high_bytes);
-    printf("\t\tLow Bytes: %#08x\n", entry->low_bytes);
-    printf("\t\tDouble: %ld\n", value);
+    double_info entry;
+    entry.tag = constant_pool[index][0];
+    entry.high_bytes = (constant_pool[index][1] << 24)|(constant_pool[index][2] << 16)|
+                       (constant_pool[index][3] << 8)|(constant_pool[index][4]);
+
+    entry.low_bytes = (constant_pool[index][5] << 24)|(constant_pool[index][6] << 16)|
+                      (constant_pool[index][7] << 8)|(constant_pool[index][8]);
+    long value = ((long) entry.high_bytes << 32) | entry.low_bytes;
+    printf("\t\tTEST: %#016lx\n", value);
+    printf("\t\tHigh Bytes: %#08x\n", entry.high_bytes);
+    printf("\t\tLow Bytes: %#08x\n", entry.low_bytes);
+    double *aux = &value;
+    printf("\t\tDouble: %lf\n", *aux);
 }
 
 void printNameAndTypeInfo(u1** constant_pool, int index) {

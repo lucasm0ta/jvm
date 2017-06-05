@@ -10,6 +10,6 @@
      u4 attribute_length;
      u1 * info;
  } attribute_info;
- 
+
 
  #endif // ATTRIBUTE_H
