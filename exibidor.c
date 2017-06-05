@@ -51,14 +51,14 @@ void printBasicStructure(Class class) {
     printf("Super Class: %d    ", class.super_class);
     printUtf8String(class.constant_pool, class.super_class);
     printf("\n");
-    printf("Interfaces Count: %d\n", class.interfaces_count);
+    printf("Interfaces Counter: %d\n", class.interfaces_count);
     int i;
     for(i = 0; i < class.interfaces_count; i++) {
         printf("Entry No %d\n", i+1);
         printf("Value: %d\n", class.interfaces[i]);
         printf("------------------------\n");
     }
-    printf("Fields Count: %d\n", class.fields_count);
+    printf("Fields Counter: %d\n", class.fields_count);
 
     printAllFields(class.fields, class.fields_count);
 }

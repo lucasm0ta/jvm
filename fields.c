@@ -3,28 +3,29 @@
 // Auxiliary functions
 
 void printAllFields(field_info *all_fields, u2 size){
+    printf("\nFields Structure\n---------------\n");
     for (int i = 0; i < size; i++) {
-        printf("Field No %d\n", i+1);
+        printf("\tField No %d\n", i+1);
         field_info info = all_fields[i];
-        printf("\tAccess_flags:  %d\n",info.access_flags);
+        printf("\t\tAccess Flags:  %x\n",info.access_flags);
 
-        printf("\tname_index:  %d\n",info.name_index);
+        printf("\t\tName Index:  %d\n",info.name_index);
 
-        printf("\tdescriptor_index:  %d\n",info.descriptor_index);
+        printf("\t\tDescriptor Index:  %d\n",info.descriptor_index);
 
-        printf("\tattributes_count:  %d\n",info.attributes_count);
+        printf("\t\tAttributes Count:  %d\n",info.attributes_count);
 
         for (int j = 0; j < info.attributes_count; j++) {
-            printf("\tAttribute %d\n", j);
+            printf("\t\tAttribute %d\n", j);
             attribute_info attribute = info.attributes[j];
-            printf("\t\tAttribute_name_index:  %d\n", attribute.attribute_name_index);
+            printf("\t\t\tAttribute Name Index:  %d\n", attribute.attribute_name_index);
 
-            printf("\t\tAttribute_length:  %d\n", attribute.attribute_length);
+            printf("\t\t\tAttribute Length:  %d\n", attribute.attribute_length);
 
             for (int k = 0; k < attribute.attribute_length; k++) {
-                printf("\t\t\tinfo:  %d\n", attribute.info[k]);
+                printf("\t\t\t\tInfo:  %d\n", attribute.info[k]);
             }
-
         }
+        printf("-----------------\n");
     }
 }

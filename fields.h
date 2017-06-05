@@ -51,7 +51,7 @@
           * Class attributes.
           * Size attributes_cout. Ignore all urecognized attributes.
           */
-         attribute_info * attributes;
+         attribute_info *attributes;
  } field_info;
 
 /*!
