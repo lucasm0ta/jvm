@@ -54,20 +54,22 @@ void printStringInfo(u1** constant_pool, int index) {
 void printIntegerInfo(u1** constant_pool, int index) {
     integer_info *entry = (integer_info *) constant_pool[index];
     printf("\t\tCONSTANT Integer [%d]: \n", entry->tag);
-    printf("\t\tInteger: %d", entry->bytes);
+    printf("\t\tBytes: %#08x\n", entry->bytes);
+    printf("\t\tInteger: %d\n", entry->bytes);
 }
 
 void printFloatInfo(u1** constant_pool, int index) {
     float_info *entry = (float_info *) constant_pool[index];
     printf("\t\tCONSTANT Float [%d]: \n", entry->tag);
+    printf("\t\tBytes: %#08x\n", entry->bytes);
     printf("\t\tFloat: %f\n", (float)entry->bytes);
 }
 
 void printLongInfo(u1** constant_pool, int index) {
     long_info *entry = (long_info *) constant_pool[index];
     long value = ((long) entry->high_bytes << 32) + entry->low_bytes;
-    printf("\t\tHigh Bytes: %#08x\n", entry->high_bytes);
-    printf("\t\tLow Bytes: %#08x\n", entry->low_bytes);
+    printf("\t\tHigh Bytes: %#04x\n", entry->high_bytes);
+    printf("\t\tLow Bytes: %#04x\n", entry->low_bytes);
     printf("\t\tLong: %ld\n", value);
 }
 
