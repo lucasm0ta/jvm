@@ -61,5 +61,4 @@ void printBasicStructure(Class class) {
     printf("Fields Count: %d\n", class.fields_count);
 
     printAllFields(class.fields, class.fields_count);
-
 }

@@ -35,10 +35,10 @@ Class ler(char * path_name) {
         class_inter.fields_count = getW(p_arq);
 
         class_inter.fields =
-                (field_info **) malloc(sizeof(field_info*) * class_inter.fields_count);
+                (field_info *) malloc(sizeof(field_info) * class_inter.fields_count);
 
         for (i = 0; i < class_inter.fields_count; i++) {
-            class_inter.fields[i] = readFieldEntry(p_arq);
+             readFieldEntry(&class_inter.fields[i], p_arq);
         }
 
         // Temporary
@@ -110,16 +110,15 @@ static u1 *readUtf8AsArray(FILE* file) {
     return (u1 *) byte_array;
 }
 
-field_info * readFieldEntry(FILE * file){
-    field_info Temporary;
-    Temporary.access_flags = getW(file);
-    Temporary.name_index = getW(file);
-    Temporary.descriptor_index = getW(file);
-    Temporary.attributes_count = getW(file);
-    Temporary.attributes = (attribute_info *) malloc(sizeof(attribute_info) * Temporary.attributes_count);
+void readFieldEntry(field_info *field, FILE * file){
+    field->access_flags = getW(file);
+    field->name_index = getW(file);
+    field->descriptor_index = getW(file);
+    field->attributes_count = getW(file);
+    field->attributes = (attribute_info *) malloc(sizeof(attribute_info) * field->attributes_count);
 
-    for (int i = 0; i < Temporary.attributes_count; i++) {
-        attribute_info *temp = &Temporary.attributes[i];
+    for (int i = 0; i < field->attributes_count; i++) {
+        attribute_info *temp = &field->attributes[i];
         temp->attribute_name_index = getW(file);
         temp->attribute_length = getDW(file);
         temp->info = (u1 *) malloc(sizeof(u1) * temp->attribute_length);
@@ -128,8 +127,6 @@ field_info * readFieldEntry(FILE * file){
             temp->info[j] = getB(file);
         }
     }
-
-
 }
 
 

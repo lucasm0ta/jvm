@@ -46,7 +46,7 @@ u1 *readConstantPoolEntry(FILE * file);
  * @param  file The file to be read from
  * @return      Returns a field_info struct with its info.
  */
-field_info * readFieldEntry(FILE * file);
+void readFieldEntry(field_info *field, FILE * file);
 
 
 

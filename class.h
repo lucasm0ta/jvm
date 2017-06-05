@@ -101,7 +101,7 @@ typedef struct Class{
     /*!
      * Table of fields. Of size fields_count.
      */
-    field_info **fields;
+    field_info *fields;
 
     /*!
      * Counter of methods.

@@ -59,12 +59,12 @@
  * @param constant_pool The constant_pool pointer
  * @param size          The size of the constant pool
  */
-void printAllFields(field_info ** all_fields, u2 size);
+void printAllFields(field_info *all_fields, u2 size);
 
 /*!
- * Print the entry in the index passed. It needs the whole constant pool
+ * Print the entry in the index passed. It needs the whole field info
  * because it needs information in other entries.
- * @param constant_pool The whole constant pool
+ * @param field_info The field info array
  * @param index         index of the entry
  */
 void printFieldInfo(field_info * all_field, u2 index);
