@@ -35,7 +35,7 @@ Class ler(char * path_name) {
         class_inter.fields_count = getW(p_arq);
 
         class_inter.fields =
-                (field_info *) malloc(sizeof(field_info) * class_inter.fields_count);
+                (field_info **) malloc(sizeof(field_info*) * class_inter.fields_count);
 
         for (i = 0; i < class_inter.fields_count; i++) {
             class_inter.fields[i] = readFieldEntry(p_arq);
