@@ -35,6 +35,12 @@ u2 getW(FILE *file);
 u4 getDW(FILE *file);
 
 /*!
+ * Reads a string of bytes from file size num_of_bytes.
+ * Returns it as a pointer to a u1 array
+ */
+u1 *readBytesAsArray(FILE *file, int num_of_bytes);
+
+/*!
  * Reads a single entry of the constant_pool
  * @param  file The file to be read from
  * @return      Returns a cp_info struct with its info.

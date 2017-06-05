@@ -66,13 +66,17 @@ void printFloatInfo(u1** constant_pool, int index) {
 void printLongInfo(u1** constant_pool, int index) {
     long_info *entry = (long_info *) constant_pool[index];
     long value = ((long) entry->high_bytes << 32) + entry->low_bytes;
+    printf("\t\tHigh Bytes: %#08x\n", entry->high_bytes);
+    printf("\t\tLow Bytes: %#08x\n", entry->low_bytes);
     printf("\t\tLong: %ld\n", value);
 }
 
 void printDoubleInfo(u1** constant_pool, int index) {
     double_info *entry = (double_info *) constant_pool[index];
     long value = ((long) entry->high_bytes << 32) + entry->low_bytes;
-    printf("\t\tDouble: %lf\n", (double) value);
+    printf("\t\tHigh Bytes: %#08x\n", entry->high_bytes);
+    printf("\t\tLow Bytes: %#08x\n", entry->low_bytes);
+    printf("\t\tDouble: %ld\n", value);
 }
 
 void printNameAndTypeInfo(u1** constant_pool, int index) {
@@ -180,6 +184,13 @@ void printConstantPool(u1** constant_pool, int size) {
     for(i = 0; i < size; i++) {
         printf("\tEntry No %d\n", i+1);
         printEntryInfo(constant_pool, i);
+        // In case its double or float
+        if(constant_pool[i][0] == 5 || constant_pool[i][0] == 6) {
+            i++;
+            printf("\t--------------------------\n");
+            printf("\tEntry No %d\n", i+1);
+            printf("\t\tLarge Numeric Continued\n");
+        }
         printf("\t--------------------------\n");
     }
 }

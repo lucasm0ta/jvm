@@ -18,6 +18,10 @@ Class ler(char * path_name) {
         // Creating the entries
         for(i = 0; i < class_inter.constant_pool_count-1; i++) {
             class_inter.constant_pool[i] = readConstantPoolEntry(p_arq);
+            // In case its double or float
+            if(class_inter.constant_pool[i][0] == 5 || class_inter.constant_pool[i][0] == 6) {
+                i++;
+            }
         }
 
         class_inter.access_flags = getW(p_arq);
@@ -79,11 +83,7 @@ u4 getDW(FILE * pa){
     return ret;
 }
 
-/*!
- * Reads a string of bytes from file size num_of_bytes.
- * Returns it as a pointer to a u1 array
- */
-static u1 *readBytesAsArray(FILE *file, int num_of_bytes) {
+u1 *readBytesAsArray(FILE *file, int num_of_bytes) {
     u1* byte_array = (u1 *) malloc(sizeof(u1) * num_of_bytes);
     int i;
     for(i = 0; i < num_of_bytes; i++) {
