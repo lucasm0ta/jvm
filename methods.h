@@ -1,4 +1,5 @@
 #include "attribute.h"
+#include "decoder.h"
 
 #ifndef METHODS_H
 #define METHODS_H

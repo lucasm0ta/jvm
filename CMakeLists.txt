@@ -9,5 +9,6 @@ add_executable(JVM
     constant_pool.c
     fields.c
     methods.c
+    decoder.c
 )
 set_property(TARGET JVM PROPERTY C_STANDARD 99)
