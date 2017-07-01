@@ -3,3 +3,8 @@ CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
+*.DS_Store
+*.o
+.DS_Store
+*.class
+*.java
