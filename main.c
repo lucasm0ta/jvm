@@ -2,6 +2,7 @@
 #include <string.h>
 #include "leitor.h"
 #include "exibidor.h"
+#include "main.h"
 
 Class class_file;
 
@@ -43,7 +44,7 @@ int main (int argc, char *argv[]) {
 }
 
 int menu (){
-    opt = 0
+    int opt = 0;
     printf("\t===============================================\n");
     printf("\t==================== MENU =====================\n");
     printf("\t===============================================\n");
@@ -56,11 +57,10 @@ int menu (){
     switch(opt){
         case 1:
             printBasicStructure(class_file);
-            return 0
+            return 0;
         case 2:
             printf("Acessando JVM...");
-            return 0
-        default:
+            return 0;
     }
 
 }
