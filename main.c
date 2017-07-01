@@ -5,9 +5,9 @@
 #include "main.h"
 
 Class class_file;
+char file_path[126];
 
 int main (int argc, char *argv[]) {
-    char file_path[126];
     if (argc == 2) { // Second argument is the .class path
         strcpy(file_path, argv[1]);
     } else { // No arguments
@@ -15,6 +15,7 @@ int main (int argc, char *argv[]) {
         scanf("%125s", file_path); // Check if input is valid?
     }
     //TODO: Case where user types input and output file
+
 
     FILE * file;
     file = fopen(file_path, "r");
@@ -24,27 +25,16 @@ int main (int argc, char *argv[]) {
         fseek(file, 0, SEEK_SET);
         printf("File size: %ld bytes\n", size);
         fclose(file);
-
-        class_file = ler(file_path);
-        printBasicStructure(class_file);
-
-        // Cleaning up
-        //TODO: Put this into a function in the class.c file
-        int i = 0;
-        for(i = 0; i < class_file.constant_pool_count-1; i++) {
-            freeEntry(&class_file.constant_pool[i]);
-        }
-        free(class_file.constant_pool);
-
+        menu ();
     } else {
         printf("File %s does not exist\n", file_path);
     }
 
-    menu();
 }
 
 int menu (){
     int opt = 0;
+    system("clear || cls");
     printf("\t===============================================\n");
     printf("\t==================== MENU =====================\n");
     printf("\t===============================================\n");
@@ -56,10 +46,18 @@ int menu (){
     scanf("%d",&opt);
     switch(opt){
         case 1:
+            class_file = ler(file_path);
             printBasicStructure(class_file);
+            // Cleaning up
+            //TODO: Put this into a function in the class.c file
+            int i = 0;
+            for(i = 0; i < class_file.constant_pool_count-1; i++) {
+                freeEntry(&class_file.constant_pool[i]);
+            }
+            free(class_file.constant_pool);
             return 0;
         case 2:
-            printf("Acessando JVM...");
+            printf("\tAcessando JVM...\n");
             return 0;
     }
 
