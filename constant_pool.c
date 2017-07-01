@@ -68,7 +68,7 @@ void printFloatInfo(u1** constant_pool, int index) {
                        (constant_pool[index][3] << 8)|(constant_pool[index][4]);
     printf("\t\tCONSTANT Float [%d]: \n", entry.tag);
     printf("\t\tBytes: %#08x\n", entry.bytes);
-    float *aux = &entry.bytes;
+    float *aux = (float *)&entry.bytes;
     printf("\t\tFloat: %f\n", *aux);
 }
 
@@ -99,7 +99,7 @@ void printDoubleInfo(u1** constant_pool, int index) {
     printf("\t\tTEST: %#016lx\n", value);
     printf("\t\tHigh Bytes: %#08x\n", entry.high_bytes);
     printf("\t\tLow Bytes: %#08x\n", entry.low_bytes);
-    double *aux = &value;
+    double *aux = (double *)&value;
     printf("\t\tDouble: %lf\n", *aux);
 }
 
