@@ -90,7 +90,6 @@ typedef struct Class{
      */
     u2 attributes_count;
 
-    // TODO: malloc on create.
     /*!
      * Size of attributes_count.
      */

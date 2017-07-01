@@ -73,4 +73,6 @@ void printBasicStructure(Class class) {
     printf("Methods Counter: %d\n", class.methods_count);
     printAllMethods(class.methods, class.methods_count);
 
+    printf("Attributes Counter: %d\n", class.attributes_count);
+    printAllAttributes(class.attributes, class.attributes_count);
 }

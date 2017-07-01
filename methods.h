@@ -67,4 +67,5 @@ typedef struct code_attribute {
 }code_attribute;
 
 void printAllMethods(method_info *methods, u2 size);
+void printAllAttributes(attribute_info *attributes, u2 size);
  #endif // METHODS_H

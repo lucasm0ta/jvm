@@ -52,16 +52,18 @@ Class ler(char * path_name) {
              readMethodEntry(&class_inter.methods[i], p_arq);
         }
 
+        class_inter.attributes_count = getW(p_arq);
+        class_inter.attributes = (attribute_info *) malloc(sizeof(attribute_info) * class_inter.attributes_count);
+        for (i = 0; i < class_inter.attributes_count; i++) {
+            readAttributesInfoEntry(&class_inter.attributes[i], p_arq);
+        }
+
         // Temporary
         fclose(p_arq);
         return class_inter; // Works untill here
         //----------
 
-        class_inter.methods_count = getW(p_arq);
 
-        class_inter.attributes_count = getW(p_arq);
-
-        //TODO: pegar os atributos
     }
     fclose (p_arq);
     return class_inter;
@@ -130,10 +132,15 @@ void readFieldEntry(field_info *field, FILE * file){
 }
 
 void readMethodEntry(method_info *method, FILE * file){
+    printf("DBG:");
     method->access_flags = getW(file);
+    // printf("\tAccess flag: %d\n", method->access_flags);
     method->name_index = getW(file);
+    // printf("\tName Index: %d\n", method->name_index);
     method->descriptor_index = getW(file);
+    // printf("\tDescriptor Index: %d\n", method->descriptor_index);
     method->attributes_count = getW(file);
+    // printf("\tAttribute Count: %d\n", method->attributes_count);
     method->attributes = (attribute_info *) malloc(sizeof(attribute_info) * method->attributes_count);
     attribute_info *attributes = method->attributes;
     for(int j = 0; j < method->attributes_count; j++){
@@ -144,6 +151,8 @@ void readMethodEntry(method_info *method, FILE * file){
 void readAttributesInfoEntry(attribute_info *attribute, FILE * file){
     attribute->attribute_name_index = getW(file);
     attribute->attribute_length = getDW(file);
+
+    // printf("\tAttribute Length: %d\n", attribute->attribute_length);
     attribute->info = (u1 *) malloc(sizeof(u1) * attribute->attribute_length);
 
     for (size_t j = 0; j < attribute->attribute_length; j++) {

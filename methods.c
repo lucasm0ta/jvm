@@ -15,21 +15,26 @@ void printAllMethods(method_info *methods, u2 size) {
         printf("\t\tDescriptor Index:  %d\n", method.descriptor_index);
 
         printf("\t\tAttributes Count:  %d\n", method.attributes_count);
-        decoder dec[256];
-        decoder_init(dec); 
-        for (int j = 0; j < method.attributes_count; j++) {
-            printf("\t\t\tAttribute %d\n", j);
-            attribute_info attribute = method.attributes[j];
-            printf("\t\t\t\tAttribute Name Index:  %d\n", attribute.attribute_name_index);
-            int tamanho_attr = attribute.attribute_length;
-            printf("\t\t\t\tAttribute Length:  %d\n", tamanho_attr  );
-            for (int k = 0; k < attribute.attribute_length; k++) {
-                int opcode = attribute.info[k];
-                printf("\t\t\t\tInfo:  %d \t%s\n", opcode, dec[opcode].instrucao);
-            }
 
-            printf("\t\t\t-----------------\n");
+        printAllAttributes(method.attributes, method.attributes_count);
+    }
+}
+
+void printAllAttributes(attribute_info *attributes, u2 size) {
+    decoder dec[256];
+    decoder_init(dec);
+
+    for (int i = 0; i < size; i++) {
+        printf("\t\t\tAttribute %d\n", i);
+        attribute_info attribute = attributes[i];
+        printf("\t\t\t\tAttribute Name Index:  %d\n", attribute.attribute_name_index);
+        int tamanho_attr = attribute.attribute_length;
+        printf("\t\t\t\tAttribute Length:  %d\n", tamanho_attr  );
+        for (int k = 0; k < attribute.attribute_length; k++) {
+            int opcode = attribute.info[k];
+            printf("\t\t\t\tInfo:  %d \t%s\n", opcode, dec[opcode].instrucao);
         }
-        printf("\t-----------------\n");
+
+        printf("\t\t\t-----------------\n");
     }
 }
