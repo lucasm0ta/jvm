@@ -7,3 +7,5 @@
  * @return      Function code.
  */
 int main (int argc, char *argv[]);
+
+int menu();

@@ -3,12 +3,13 @@
 #include "leitor.h"
 #include "exibidor.h"
 
+Class class_file;
+
 int main (int argc, char *argv[]) {
     char file_path[126];
     if (argc == 2) { // Second argument is the .class path
         strcpy(file_path, argv[1]);
-    }
-    else { // No arguments
+    } else { // No arguments
         printf("Class file name: ");
         scanf("%125s", file_path); // Check if input is valid?
     }
@@ -23,7 +24,7 @@ int main (int argc, char *argv[]) {
         printf("File size: %ld bytes\n", size);
         fclose(file);
 
-        Class class_file = ler(file_path);
+        class_file = ler(file_path);
         printBasicStructure(class_file);
 
         // Cleaning up
@@ -34,8 +35,32 @@ int main (int argc, char *argv[]) {
         }
         free(class_file.constant_pool);
 
-    }
-    else {
+    } else {
         printf("File %s does not exist\n", file_path);
     }
+
+    menu();
+}
+
+int menu (){
+    opt = 0
+    printf("\t===============================================\n");
+    printf("\t==================== MENU =====================\n");
+    printf("\t===============================================\n");
+    printf("\t======= 1) Mostrar conteúdo do .class =========\n");
+    printf("\t======= 2) Executar interpretador     =========\n");
+    printf("\t===============================================\n");
+    printf("\t===============================================\n");
+    printf("\t>>");
+    scanf("%d",&opt);
+    switch(opt){
+        case 1:
+            printBasicStructure(class_file);
+            return 0
+        case 2:
+            printf("Acessando JVM...");
+            return 0
+        default:
+    }
+
 }
