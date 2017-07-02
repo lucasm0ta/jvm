@@ -14,8 +14,6 @@ int main (int argc, char *argv[]) {
         printf("Class file name: ");
         scanf("%125s", file_path); // Check if input is valid?
     }
-    //TODO: Case where user types input and output file
-
 
     FILE * file;
     file = fopen(file_path, "r");
