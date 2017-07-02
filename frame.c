@@ -25,7 +25,8 @@ void pushFrame(stackFrame* stack, Frame * frame) {
     Node* new_node = (Node *) malloc(sizeof(Node));
     new_node->frame = frame;
     new_node->next = stack->head_frame;
-    stack->head_frame = new_node;   
+    stack->head_frame = new_node;
+    currentFrame = frame;
 }
 
 
@@ -49,6 +50,23 @@ Frame * createFrame(u1** constant_pool, Class* class_file, u1* code) {
     new->operand_stack = createOpStack(new->operand_stack_size);
 
     return new;
+}
+
+void pushOperand(stackFrame* stack, LocalVar new_var) {
+    int last = stack->head_frame->frame->operand_stack->last;
+    stack->head_frame->frame->operand_stack->operands[last] = new_var;
+    last++;
+}
+
+void execute(stackFrame* stack) {
+    while(currentFrame->pc < currentFrame->code_length) {
+        instructions[currentFrame->code[currentFrame->pc]]();
+    }
+    popFrame(stack);
+}
+
+void popOperand(stackFrame* stack) {
+    stack->head_frame->frame->operand_stack->last--;
 }
 
 void freeNode(Node* node) {

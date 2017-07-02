@@ -125,4 +125,10 @@ void freeNode(Node* node);
  */
 void freeFrame(Frame* frame);
 
+void runFrame();
+
+void pushOperand(stackFrame* stack, LocalVar new_var);
+
+void popOperand(stackFrame* stack);
+
 #endif // FRAME_H
